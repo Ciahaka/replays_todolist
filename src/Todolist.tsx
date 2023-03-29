@@ -12,22 +12,22 @@ export type TodolistPropsType = {
   tasks: TasksType[]
   removeTasks: (id: string) => void
   changeFilter: (value: ChangeFilterType) => void
-  addTask: (title:string) => void
+  addTask: (title: string) => void
 }
 export const Todolist = (props: TodolistPropsType) => {
-  const [title, setTitle] = useState('')
-const changeValueInputHandler = (e:ChangeEvent<HTMLInputElement>) =>{
-  setTitle(e.currentTarget.value)
-}
+  const [value, setValue] = useState('')
+  const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
+  const addTaskHandler = () => {
+    props.addTask(value)
+    setValue('')
+  }
   return (
     <div>
       <h3>{props.title}</h3>
       <div>
-        <input value={title}
-        onChange={changeValueInputHandler}/>
-        <button onClick={() => {
-          props.addTask(title)
-        }}>+
+        <input value={value}
+               onChange={changeValueInputHandler}/>
+        <button onClick={addTaskHandler}>+
         </button>
       </div>
       <ul>

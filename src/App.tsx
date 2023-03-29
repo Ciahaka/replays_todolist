@@ -26,6 +26,7 @@ function App() {
     let newTask = {id: v1(), title, isDone: false}
     const newTasksArr = [newTask,...tasks]
     setTasks(newTasksArr)
+
   }
 
   let filteredTasks = tasks
