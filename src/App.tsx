@@ -16,7 +16,6 @@ function App() {
   ])
   let [filter, setFilter] = useState<ChangeFilterType>('All')
 
-
   const removeTasks = (id: string) => {
     tasks = tasks.filter(t => t.id !== id)
     setTasks(tasks)

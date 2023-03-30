@@ -23,10 +23,13 @@ export const Todolist = (props: TodolistPropsType) => {
   }
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      props.addTask(value)
-      setValue('')
+      addTaskHandler()
     }
   }
+  const allStatusFilterHandler = () => props.changeFilter('All')
+  const activeStatusFilterHandler = () => props.changeFilter('Active')
+  const completedStatusFilterHandler = () => props.changeFilter('Completed')
+
 
   return (
     <div>
@@ -41,29 +44,29 @@ export const Todolist = (props: TodolistPropsType) => {
       </div>
       <ul>
         {props.tasks.map((t: TasksType) => {
+          const removeTaskHandler = () => props.removeTasks(t.id)
 
           return <li key={t.id}><input type="checkbox" checked={t.isDone}/>
             <span>{t.title}</span>
             <button onClick={() => {
-              props.removeTasks(t.id)
+              removeTaskHandler()
             }}>✖️
             </button>
           </li>
-
         })}
 
       </ul>
       <div>
         <button onClick={() => {
-          props.changeFilter('All')
+          allStatusFilterHandler()
         }}>All
         </button>
         <button onClick={() => {
-          props.changeFilter('Active')
+          activeStatusFilterHandler()
         }}>Active
         </button>
         <button onClick={() => {
-          props.changeFilter('Completed')
+          completedStatusFilterHandler()
         }}>Completed
         </button>
       </div>
