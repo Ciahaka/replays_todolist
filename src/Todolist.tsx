@@ -10,18 +10,23 @@ export type TasksType = {
 export type TodolistPropsType = {
   title: string
   tasks: TasksType[]
-  removeTasks: (id: string) => void
+  removeTasks: (taskID: string) => void
   changeFilter: (value: ChangeFilterType) => void
   addTask: (title: string) => void
+  statusCheckbox: (taskID: string, isDone: boolean) => void
 }
 export const Todolist = (props: TodolistPropsType) => {
   const [value, setValue] = useState('')
+  const [error, setError] = useState<null | string>(null)
   const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
   const addTaskHandler = () => {
-    props.addTask(value)
-    setValue('')
+    if (value.trim() !== '') {
+      props.addTask(value.trim())
+      setValue('')
+    } else setError('Заполните поле!')
   }
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    setError(null)
     if (e.key === 'Enter') {
       addTaskHandler()
     }
@@ -38,15 +43,24 @@ export const Todolist = (props: TodolistPropsType) => {
         <input value={value}
                onChange={changeValueInputHandler}
                onKeyDown={keyDownHandler}
+               className={error ? 'error' : ''}
         />
         <button onClick={addTaskHandler}>+
         </button>
+        {error && <div className={'error-message'}>{error}</div>}
       </div>
       <ul>
         {props.tasks.map((t: TasksType) => {
           const removeTaskHandler = () => props.removeTasks(t.id)
-
-          return <li key={t.id}><input type="checkbox" checked={t.isDone}/>
+          const taskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            let bindCheckbox = e.currentTarget.checked
+            props.statusCheckbox(t.id, bindCheckbox)
+          }
+          return <li key={t.id}><input
+            type="checkbox"
+            checked={t.isDone}
+            onChange={taskStatusHandler}
+          />
             <span>{t.title}</span>
             <button onClick={() => {
               removeTaskHandler()
