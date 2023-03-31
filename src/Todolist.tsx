@@ -7,39 +7,36 @@ export type TasksType = {
   isDone: boolean
 }
 export type TodolistPropsType = {
-  id:string
+  id: string
   title: string
   tasks: TasksType[]
-  removeTasks: (taskID: string) => void
-  changeFilter: (tdID:string,value: ChangeFilterType) => void
-  addTask: (title: string) => void
-  statusCheckbox: (taskID: string, isDone: boolean) => void
-  filter:ChangeFilterType
+  removeTasks: (taskID: string, tLID: string) => void
+  changeFilter: (tdID: string, value: ChangeFilterType) => void
+  addTask: (title: string, tLID: string) => void
+  statusCheckbox: (taskID: string, tLID: string, isDone: boolean) => void
+  filter: ChangeFilterType
 }
 export const Todolist = (props: TodolistPropsType) => {
 
   const [value, setValue] = useState('')
   const [error, setError] = useState<null | string>(null)
 
-
   const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
   const addTaskHandler = () => {
     if (value.trim() !== '') {
-      props.addTask(value.trim())
+      props.addTask(value.trim(), props.id)
       setValue('')
     } else setError('Заполните поле!')
   }
-
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     setError(null)
     if (e.key === 'Enter') {
       addTaskHandler()
     }
   }
-  const allStatusFilterHandler = () => props.changeFilter(props.id,'All' )
-  const activeStatusFilterHandler = () => props.changeFilter(props.id,'Active')
-  const completedStatusFilterHandler = () => props.changeFilter(props.id,'Completed')
-
+  const allStatusFilterHandler = () => props.changeFilter(props.id, 'All')
+  const activeStatusFilterHandler = () => props.changeFilter(props.id, 'Active')
+  const completedStatusFilterHandler = () => props.changeFilter(props.id, 'Completed')
 
   return (
     <div>
@@ -56,10 +53,11 @@ export const Todolist = (props: TodolistPropsType) => {
       </div>
       <ul>
         {props.tasks.map((t: TasksType) => {
-          const removeTaskHandler = () => props.removeTasks(t.id)
+
+          const removeTaskHandler = () => props.removeTasks(t.id, props.id)
           const taskStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
             let bindCheckbox = e.currentTarget.checked
-            props.statusCheckbox(t.id, bindCheckbox)
+            props.statusCheckbox(t.id, props.id, bindCheckbox)
           }
           return <li key={t.id}
                      className={t.isDone ? 'completed-task' : ''}>
