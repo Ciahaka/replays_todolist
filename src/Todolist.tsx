@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {ChangeFilterType} from './App';
 
-
 export type TasksType = {
   id: string
   title: string
@@ -14,10 +13,14 @@ export type TodolistPropsType = {
   changeFilter: (value: ChangeFilterType) => void
   addTask: (title: string) => void
   statusCheckbox: (taskID: string, isDone: boolean) => void
+  filter: ChangeFilterType
 }
 export const Todolist = (props: TodolistPropsType) => {
+
   const [value, setValue] = useState('')
   const [error, setError] = useState<null | string>(null)
+
+
   const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
   const addTaskHandler = () => {
     if (value.trim() !== '') {
@@ -25,6 +28,7 @@ export const Todolist = (props: TodolistPropsType) => {
       setValue('')
     } else setError('Заполните поле!')
   }
+
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
     setError(null)
     if (e.key === 'Enter') {
@@ -71,17 +75,20 @@ export const Todolist = (props: TodolistPropsType) => {
 
       </ul>
       <div>
-        <button onClick={() => {
-          allStatusFilterHandler()
-        }}>All
+        <button className={props.filter === 'All' ? 'active-filter' : ''}
+                onClick={() => {
+                  allStatusFilterHandler()
+                }}>All
         </button>
-        <button onClick={() => {
-          activeStatusFilterHandler()
-        }}>Active
+        <button className={props.filter === 'Active' ? 'active-filter' : ''}
+                onClick={() => {
+                  activeStatusFilterHandler()
+                }}>Active
         </button>
-        <button onClick={() => {
-          completedStatusFilterHandler()
-        }}>Completed
+        <button className={props.filter === 'Completed' ? 'active-filter' : ''}
+                onClick={() => {
+                  completedStatusFilterHandler()
+                }}>Completed
         </button>
       </div>
     </div>
