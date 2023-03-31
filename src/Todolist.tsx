@@ -7,13 +7,14 @@ export type TasksType = {
   isDone: boolean
 }
 export type TodolistPropsType = {
+  id:string
   title: string
   tasks: TasksType[]
   removeTasks: (taskID: string) => void
-  changeFilter: (value: ChangeFilterType) => void
+  changeFilter: (tdID:string,value: ChangeFilterType) => void
   addTask: (title: string) => void
   statusCheckbox: (taskID: string, isDone: boolean) => void
-  filter: ChangeFilterType
+  filter:ChangeFilterType
 }
 export const Todolist = (props: TodolistPropsType) => {
 
@@ -35,9 +36,9 @@ export const Todolist = (props: TodolistPropsType) => {
       addTaskHandler()
     }
   }
-  const allStatusFilterHandler = () => props.changeFilter('All')
-  const activeStatusFilterHandler = () => props.changeFilter('Active')
-  const completedStatusFilterHandler = () => props.changeFilter('Completed')
+  const allStatusFilterHandler = () => props.changeFilter(props.id,'All' )
+  const activeStatusFilterHandler = () => props.changeFilter(props.id,'Active')
+  const completedStatusFilterHandler = () => props.changeFilter(props.id,'Completed')
 
 
   return (
@@ -60,11 +61,13 @@ export const Todolist = (props: TodolistPropsType) => {
             let bindCheckbox = e.currentTarget.checked
             props.statusCheckbox(t.id, bindCheckbox)
           }
-          return <li key={t.id}><input
-            type="checkbox"
-            checked={t.isDone}
-            onChange={taskStatusHandler}
-          />
+          return <li key={t.id}
+                     className={t.isDone ? 'completed-task' : ''}>
+            <input
+              type="checkbox"
+              checked={t.isDone}
+              onChange={taskStatusHandler}
+            />
             <span>{t.title}</span>
             <button onClick={() => {
               removeTaskHandler()
