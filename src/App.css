@@ -1,19 +1,23 @@
 .App {
-margin-left: 80px;
-  padding: 30px;
-  display: flex;
+    margin: 20px;
+    padding: 30px;
+    display: flex;
+    gap: 15px;
 }
 
 
 .error {
-  border: red 1px solid;
+    border: red 1px solid;
 }
+
 .error-message {
-  color: red;
+    color: red;
 }
+
 .active-filter {
-  background-color: aquamarine;
+    background-color: aquamarine;
 }
+
 .completed-task {
-  opacity: 0.5;
+    opacity: 50%;
 }
