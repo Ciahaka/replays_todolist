@@ -11,3 +11,9 @@ margin-left: 80px;
 .error-message {
   color: red;
 }
+.active-filter {
+  background-color: aquamarine;
+}
+.completed-task {
+  opacity: 0.5;
+}
