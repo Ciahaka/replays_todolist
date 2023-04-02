@@ -40,7 +40,10 @@ export const Todolist = (props: TodolistPropsType) => {
 
   return (
     <div>
+
       <h3>{props.title}</h3>
+      <button>✖️</button>
+
       <div>
         <input value={value}
                onChange={changeValueInputHandler}
