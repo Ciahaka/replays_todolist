@@ -33,16 +33,18 @@ function App() {
   })
 
   const removeTasks = (taskID: string, tLID: string) => {
-
     let tasksTodolist = tasks[tLID]
     tasks[tLID] = tasksTodolist.filter(t => t.id !== taskID)
     setTasks({...tasks})
   }
+  // const removeTodo = (tLID: string) => {
+  //   todos.filter((td) => td.id !== tLID)
+  //   setTodos([...todos])
+  // }
   const changeFilter = (tdID: string, value: ChangeFilterType) => {
     todos.find((td) => td.id === tdID ? td.filter = value : '')
     setTodos([...todos])
   }
-
   const addTask = (title: string, tLID: string) => {
     let newTask = {id: v1(), title, isDone: false}
     let tasksTodolist = tasks[tLID]
