@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
+import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+
 
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
 
@@ -10,7 +11,9 @@ type TodolistType = {
   title: string
   filter: ChangeFilterType
 }
-
+export type  TasksStateType = {
+  [key:string]: TasksType[]
+}
 function App() {
   let tLID_1 = v1()
   let tLID_2 = v1()
@@ -20,7 +23,7 @@ function App() {
     {id: tLID_2, title: 'Что купить?', filter: 'All'},
   ])
 
-  let [tasks, setTasks] = useState({
+  let [tasks, setTasks] = useState<TasksStateType>({
     [tLID_1]: [
       {id: v1(), title: 'HTML&CSS', isDone: true},
       {id: v1(), title: 'JS', isDone: false},
@@ -37,10 +40,11 @@ function App() {
     tasks[tLID] = tasksTodolist.filter(t => t.id !== taskID)
     setTasks({...tasks})
   }
-  // const removeTodo = (tLID: string) => {
-  //   todos.filter((td) => td.id !== tLID)
-  //   setTodos([...todos])
-  // }
+  const removeTodo = (tLID: string) => {
+    setTodos(todos.filter(td=>td.id !==tLID))
+    delete tasks[tLID]
+    setTasks({...tasks})
+  }
   const changeFilter = (tdID: string, value: ChangeFilterType) => {
     todos.find((td) => td.id === tdID ? td.filter = value : '')
     setTodos([...todos])
@@ -76,12 +80,13 @@ function App() {
         return <Todolist key={td.id}
                          id={td.id}
                          title={td.title}
+                         filter={td.filter}
                          tasks={tasksForTodolist}
                          removeTasks={removeTasks}
+                         removeTodo={removeTodo}
                          changeFilter={changeFilter}
                          addTask={addTask}
                          statusCheckbox={changeStatusCheckbox}
-                         filter={td.filter}
         />
       })}
 
