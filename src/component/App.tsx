@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import './App.css';
+import '../App.css';
 import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
+import UniversalInput from '../unidersal input form/UniversalInput';
 
 
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
@@ -12,8 +13,9 @@ type TodolistType = {
   filter: ChangeFilterType
 }
 export type  TasksStateType = {
-  [key:string]: TasksType[]
+  [key: string]: TasksType[]
 }
+
 function App() {
   let tLID_1 = v1()
   let tLID_2 = v1()
@@ -41,12 +43,12 @@ function App() {
     setTasks({...tasks})
   }
   const removeTodo = (tLID: string) => {
-    setTodos(todos.filter(td=>td.id !==tLID))
+    setTodos(todos.filter(td => td.id !== tLID))
     delete tasks[tLID]
     setTasks({...tasks})
   }
-  const changeFilter = (tdID: string, value: ChangeFilterType) => {
-    todos.find((td) => td.id === tdID ? td.filter = value : '')
+  const changeFilter = (tdLID: string, value: ChangeFilterType) => {
+    todos.find((td) => td.id === tdLID ? td.filter = value : '')
     setTodos([...todos])
   }
   const addTask = (title: string, tLID: string) => {
@@ -64,9 +66,19 @@ function App() {
     }
     setTasks({...tasks})
   }
+  const addInputForm = (title: string) => {
+    let newTodo: TodolistType = {id: v1(), title, filter: 'All'}
+    setTodos([newTodo, ...todos])
+    setTasks({
+      ...tasks,
+      [newTodo.id]: []
+    })
+  }
 
   return (
     <div className="App">
+      <UniversalInput addInputForm={addInputForm}/>
+
       {todos.map((td) => {
         let filteredTasks = tasks[td.id]
         let tasksForTodolist = filteredTasks
@@ -77,17 +89,20 @@ function App() {
         if (td.filter === 'Completed') {
           tasksForTodolist = filteredTasks.filter((t) => t.isDone)
         }
-        return <Todolist key={td.id}
-                         id={td.id}
-                         title={td.title}
-                         filter={td.filter}
-                         tasks={tasksForTodolist}
-                         removeTasks={removeTasks}
-                         removeTodo={removeTodo}
-                         changeFilter={changeFilter}
-                         addTask={addTask}
-                         statusCheckbox={changeStatusCheckbox}
-        />
+        return <>
+          <Todolist key={td.id}
+                    id={td.id}
+                    title={td.title}
+                    filter={td.filter}
+                    tasks={tasksForTodolist}
+                    removeTasks={removeTasks}
+                    removeTodo={removeTodo}
+                    changeFilter={changeFilter}
+                    addTask={addTask}
+                    statusCheckbox={changeStatusCheckbox}
+          />
+        </>
+
       })}
 
     </div>
