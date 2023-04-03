@@ -1,5 +1,7 @@
-import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import {ChangeFilterType} from './App';
+import UniversalInput from '../unidersal input form/UniversalInput';
+
 
 export type TasksType = {
   id: string
@@ -11,7 +13,7 @@ export type TodolistPropsType = {
   title: string
   tasks: TasksType[]
   removeTasks: (taskID: string, tLID: string) => void
-  removeTodo:(tLID: string)=>void
+  removeTodo: (tLID: string) => void
   changeFilter: (tdID: string, value: ChangeFilterType) => void
   addTask: (title: string, tLID: string) => void
   statusCheckbox: (taskID: string, tLID: string, isDone: boolean) => void
@@ -19,22 +21,6 @@ export type TodolistPropsType = {
 }
 export const Todolist = (props: TodolistPropsType) => {
 
-  const [value, setValue] = useState('')
-  const [error, setError] = useState<null | string>(null)
-
-  const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-  const addTaskHandler = () => {
-    if (value.trim() !== '') {
-      props.addTask(value.trim(), props.id)
-      setValue('')
-    } else setError('Заполните поле!')
-  }
-  const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null)
-    if (e.key === 'Enter') {
-      addTaskHandler()
-    }
-  }
   const removeTodoHandler = () => {
     props.removeTodo(props.id)
   }
@@ -42,25 +28,18 @@ export const Todolist = (props: TodolistPropsType) => {
   const activeStatusFilterHandler = () => props.changeFilter(props.id, 'Active')
   const completedStatusFilterHandler = () => props.changeFilter(props.id, 'Completed')
 
+  const addTask = (title: string) => {
+    props.addTask(title, props.id)
+  }
+
   return (
     <div>
       <div>
         <h3>{props.title}
-          <button onClick={()=>removeTodoHandler()}>✖️</button>
+          <button onClick={() => removeTodoHandler()}>✖️</button>
         </h3>
-
       </div>
-
-      <div>
-        <input value={value}
-               onChange={changeValueInputHandler}
-               onKeyDown={keyDownHandler}
-               className={error ? 'error' : ''}
-        />
-        <button onClick={addTaskHandler}>+
-        </button>
-        {error && <div className={'error-message'}>{error}</div>}
-      </div>
+      <UniversalInput addInputForm={addTask}/>
       <ul>
         {props.tasks.map((t: TasksType) => {
 
