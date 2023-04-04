@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../App.css';
 import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
-import UniversalInput from '../unidersal input form/UniversalInput';
+import UniversalInput from '../universal input form/UniversalInput';
 
 
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
