@@ -74,6 +74,15 @@ function App() {
       [newTodo.id]: []
     })
   }
+  const changeTaskTitle = (taskID: string, tLID: string, title: string) => {
+
+    let tasksTodolist = tasks[tLID]
+    let newStatusTask = tasksTodolist.find(t => t.id === taskID)
+    if (newStatusTask) {
+      newStatusTask.title = title
+    }
+    setTasks({...tasks})
+  }
 
   return (
     <div className="App">
@@ -100,6 +109,7 @@ function App() {
                     changeFilter={changeFilter}
                     addTask={addTask}
                     statusCheckbox={changeStatusCheckbox}
+                    changeTaskTitle={changeTaskTitle}
           />
         </>
 
