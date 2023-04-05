@@ -4,9 +4,9 @@ export type UniversalInputType = {
   addInputForm: (title: string) => void
 }
 
-const UniversalInput = (props: UniversalInputType) => {
-  const [value, setValue] = useState('')
-  const [error, setError] = useState<null | string>(null)
+export const UniversalInput = (props: UniversalInputType) => {
+  let [value, setValue] = useState('')
+  let [error, setError] = useState<null | string>(null)
 
   const changeValueInputHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
   const addTaskHandler = () => {
@@ -36,4 +36,3 @@ const UniversalInput = (props: UniversalInputType) => {
   );
 };
 
-export default UniversalInput;
