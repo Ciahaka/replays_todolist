@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
 import {ChangeFilterType} from './App';
-import UniversalInput from '../universal input form/UniversalInput';
+import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
 
 
