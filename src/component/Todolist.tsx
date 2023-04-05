@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import {ChangeFilterType} from './App';
 import UniversalInput from '../universal input form/UniversalInput';
-import {EditTitleForm} from '../universal title edit form/EditTitleForm';
+import {EditTitleForm} from '../universal edit title form/EditTitleForm';
+
 
 
 export type TasksType = {
@@ -56,11 +57,11 @@ export const Todolist = (props: TodolistPropsType) => {
               checked={t.isDone}
               onChange={taskStatusHandler}
             />
-              <EditTitleForm title={t.title}/>
-              <button onClick={() => {
-                removeTaskHandler()
-              }}>✖️
-              </button>
+            <button onClick={() => {
+              removeTaskHandler()
+            }}>✖️
+            </button>
+            <EditTitleForm title={t.title}/>
           </li>
         })}
 
