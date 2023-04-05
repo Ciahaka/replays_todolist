@@ -4,7 +4,6 @@ import UniversalInput from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
 
 
-
 export type TasksType = {
   id: string
   title: string
@@ -13,13 +12,15 @@ export type TasksType = {
 export type TodolistPropsType = {
   id: string
   title: string
+  filter: ChangeFilterType
   tasks: TasksType[]
   removeTasks: (taskID: string, tLID: string) => void
   removeTodo: (tLID: string) => void
   changeFilter: (tdID: string, value: ChangeFilterType) => void
   addTask: (title: string, tLID: string) => void
   statusCheckbox: (taskID: string, tLID: string, isDone: boolean) => void
-  filter: ChangeFilterType
+  changeTaskTitle: (taskID: string, tLID: string, title: string) => void
+
 }
 export const Todolist = (props: TodolistPropsType) => {
 
@@ -50,6 +51,10 @@ export const Todolist = (props: TodolistPropsType) => {
             let bindCheckbox = e.currentTarget.checked
             props.statusCheckbox(t.id, props.id, bindCheckbox)
           }
+          const changeTaskTitle = (newTitle: string) => {
+            props.changeTaskTitle(t.id,props.id,newTitle)
+          }
+
           return <li key={t.id}
                      className={t.isDone ? 'completed-task' : ''}>
             <input
@@ -61,7 +66,7 @@ export const Todolist = (props: TodolistPropsType) => {
               removeTaskHandler()
             }}>✖️
             </button>
-            <EditTitleForm title={t.title}/>
+            <EditTitleForm title={t.title} changeTitle={changeTaskTitle}/>
           </li>
         })}
 
