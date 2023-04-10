@@ -3,6 +3,12 @@ import '../App.css';
 import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {UniversalInput} from '../universal input form/UniversalInput';
+import {Breadcrumb, Layout, Menu, Space} from 'antd';
+import 'antd/dist/reset.css';
+import {UserAddOutlined} from '@ant-design/icons';
+
+const {Header, Content, Footer} = Layout;
+
 
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
 
@@ -83,44 +89,72 @@ function App() {
   }
   const changeTodoTitle = (tLID: string, newTitle: string) => {
     let itemForChange = todos.find(tl => tl.id === tLID)
-    if (itemForChange){
+    if (itemForChange) {
       itemForChange.title = newTitle
     }
     setTodos([...todos])
   }
 
   return (
-    <div className="App">
-      <UniversalInput addInputForm={addInputForm}/>
+    <Layout>
+      <Header style={{position: 'sticky', top: 0, zIndex: 1, width: '100%'}}>
+        <div className='logo' />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={['1']}
+          items={new Array(3).fill(null).map((_, index) => {
+            const key = index + 1;
+            return {
+              key,
+              label: `Todo ${key}`,
+            };
+          })}
+        />
 
-      {todos.map((td) => {
-        let filteredTasks = tasks[td.id]
-        let tasksForTodolist = filteredTasks
+      </Header>
+      <Layout>
+        <Content className="site-layout" style={{padding: '0 50px'}}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Todolist</Breadcrumb.Item>
+          </Breadcrumb>
+          <div className="App">
+            <UniversalInput addInputForm={addInputForm}/>
 
-        if (td.filter === 'Active') {
-          tasksForTodolist = filteredTasks.filter((t) => !t.isDone)
-        }
-        if (td.filter === 'Completed') {
-          tasksForTodolist = filteredTasks.filter((t) => t.isDone)
-        }
-        return <>
-          <Todolist key={td.id}
-                    id={td.id}
-                    title={td.title}
-                    filter={td.filter}
-                    tasks={tasksForTodolist}
-                    removeTasks={removeTasks}
-                    removeTodo={removeTodo}
-                    changeFilter={changeFilter}
-                    addTask={addTask}
-                    statusCheckbox={changeStatusCheckbox}
-                    changeTaskTitle={changeTaskTitle}
-                    changeTodoTitle={changeTodoTitle}
-          />
-        </>
-      })}
+            {todos.map((td) => {
+              let filteredTasks = tasks[td.id]
+              let tasksForTodolist = filteredTasks
 
-    </div>
+              if (td.filter === 'Active') {
+                tasksForTodolist = filteredTasks.filter((t) => !t.isDone)
+              }
+              if (td.filter === 'Completed') {
+                tasksForTodolist = filteredTasks.filter((t) => t.isDone)
+              }
+              return <>
+                <Todolist key={td.id}
+                          id={td.id}
+                          title={td.title}
+                          filter={td.filter}
+                          tasks={tasksForTodolist}
+                          removeTasks={removeTasks}
+                          removeTodo={removeTodo}
+                          changeFilter={changeFilter}
+                          addTask={addTask}
+                          statusCheckbox={changeStatusCheckbox}
+                          changeTaskTitle={changeTaskTitle}
+                          changeTodoTitle={changeTodoTitle}
+                />
+              </>
+            })}
+          </div>
+        </Content>
+      </Layout>
+      <Footer  style={{textAlign: 'center', color: 'white', background: 'gray'}}>Ant Design ©2023 Created by Mamkin
+        Developer</Footer>
+    </Layout>
+
   );
 }
 

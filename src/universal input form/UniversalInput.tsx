@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {Button, Space} from 'antd';
 
 export type UniversalInputType = {
   addInputForm: (title: string) => void
@@ -24,13 +25,14 @@ export const UniversalInput = (props: UniversalInputType) => {
 
   return (
     <div>
-      <input value={value}
-             onChange={changeValueInputHandler}
-             onKeyDown={keyDownHandler}
-             className={error ? 'error' : ''}
-      />
-      <button onClick={addTaskHandler}>+
-      </button>
+      <Space>
+        <input value={value}
+               onChange={changeValueInputHandler}
+               onKeyDown={keyDownHandler}
+               className={error ? 'error' : ''}
+        />
+        <Button onClick={addTaskHandler}>+</Button>
+      </Space>
       {error && <div className={'error-message'}>{error}</div>}
     </div>
   );
