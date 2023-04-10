@@ -4,7 +4,6 @@ import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {UniversalInput} from '../universal input form/UniversalInput';
 
-
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
 
 type TodolistType = {
@@ -74,14 +73,20 @@ function App() {
       [newTodo.id]: []
     })
   }
-  const changeTaskTitle = (taskID: string, tLID: string, title: string) => {
-
+  const changeTaskTitle = (taskID: string, tLID: string, newTitle: string) => {
     let tasksTodolist = tasks[tLID]
     let newStatusTask = tasksTodolist.find(t => t.id === taskID)
     if (newStatusTask) {
-      newStatusTask.title = title
+      newStatusTask.title = newTitle
     }
     setTasks({...tasks})
+  }
+  const changeTodoTitle = (tLID: string, newTitle: string) => {
+    let itemForChange = todos.find(tl => tl.id === tLID)
+    if (itemForChange){
+      itemForChange.title = newTitle
+    }
+    setTodos([...todos])
   }
 
   return (
@@ -110,9 +115,9 @@ function App() {
                     addTask={addTask}
                     statusCheckbox={changeStatusCheckbox}
                     changeTaskTitle={changeTaskTitle}
+                    changeTodoTitle={changeTodoTitle}
           />
         </>
-
       })}
 
     </div>
