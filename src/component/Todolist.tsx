@@ -3,7 +3,6 @@ import {ChangeFilterType} from './App';
 import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
 
-
 export type TasksType = {
   id: string
   title: string
@@ -20,26 +19,24 @@ export type TodolistPropsType = {
   addTask: (title: string, tLID: string) => void
   statusCheckbox: (taskID: string, tLID: string, isDone: boolean) => void
   changeTaskTitle: (taskID: string, tLID: string, title: string) => void
-
+  changeTodoTitle: (tLID: string, title: string) => void
 }
+
 export const Todolist = (props: TodolistPropsType) => {
 
-  const removeTodoHandler = () => {
-    props.removeTodo(props.id)
-  }
+  const removeTodoHandler = () => props.removeTodo(props.id)
   const allStatusFilterHandler = () => props.changeFilter(props.id, 'All')
   const activeStatusFilterHandler = () => props.changeFilter(props.id, 'Active')
   const completedStatusFilterHandler = () => props.changeFilter(props.id, 'Completed')
-
-  const addTask = (title: string) => {
-    props.addTask(title, props.id)
-  }
+  const addTask = (title: string) => props.addTask(title, props.id)
+  const changeTitleTodoHandler = (newTitle: string) => props.changeTodoTitle(props.id, newTitle)
 
   return (
     <div>
       <div>
-        <h3>{props.title}
-          <button onClick={() => removeTodoHandler()}>✖️</button>
+        <h3><EditTitleForm title={props.title}
+                           changeTitle={changeTitleTodoHandler}/>
+          <button onClick={removeTodoHandler}>✖️</button>
         </h3>
       </div>
       <UniversalInput addInputForm={addTask}/>
@@ -52,7 +49,7 @@ export const Todolist = (props: TodolistPropsType) => {
             props.statusCheckbox(t.id, props.id, bindCheckbox)
           }
           const changeTaskTitle = (newTitle: string) => {
-            props.changeTaskTitle(t.id,props.id,newTitle)
+            props.changeTaskTitle(t.id, props.id, newTitle)
           }
 
           return <li key={t.id}
