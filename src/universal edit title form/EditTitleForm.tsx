@@ -2,13 +2,14 @@ import React, {ChangeEvent, useState} from 'react';
 
 export type EditeTitleType = {
   title: string
-  changeTitle:(title:string)=>void
+  changeTitle: (title: string) => void
 }
 
 export const EditTitleForm = (props: EditeTitleType) => {
 
   let [title, setTitle] = useState('')
   let [editMode, setEditMode] = useState(false)
+
   const activateViewMode = () => {
     setEditMode(true)
     setTitle(props.title)
