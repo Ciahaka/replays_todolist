@@ -2,11 +2,11 @@ import React from 'react';
 import {ChangeFilterType} from './App';
 import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
-import {Button, Checkbox} from 'antd';
+import {Button, Checkbox, List} from 'antd';
 import {CheckboxChangeEvent} from 'antd/es/checkbox';
 import {Space} from 'antd/lib';
 import {
-  CloseOutlined,
+  CloseOutlined, DeleteOutlined,
 } from '@ant-design/icons';
 
 
@@ -39,16 +39,15 @@ export const Todolist = (props: TodolistPropsType) => {
   const changeTitleTodoHandler = (newTitle: string) => props.changeTodoTitle(props.id, newTitle)
 
   return (
-    <div>
+    <>
       <div>
         <h3>
           <Space>
             <EditTitleForm title={props.title}
                            changeTitle={changeTitleTodoHandler}/>
-            <Button onClick={removeTodoHandler} icon={<CloseOutlined/>} size={'small'} style={{color: 'red'}}></Button>
+            <Button onClick={removeTodoHandler} icon={<DeleteOutlined/>} size="small" style={{color: 'red'}}></Button>
           </Space>
         </h3>
-
       </div>
       <UniversalInput addInputForm={addTask}/>
       <ul>
@@ -63,25 +62,30 @@ export const Todolist = (props: TodolistPropsType) => {
             props.changeTaskTitle(t.id, props.id, newTitle)
           }
 
-          return <li key={t.id}
-                     className={t.isDone ? 'completed-task' : ''}>
-            <Space>
-              <Checkbox
-                type="checkbox"
-                checked={t.isDone}
-                onChange={taskStatusHandler}
-              />
-              <Button size={'small'}
-                      style={{color: 'red'}}
-                      icon={<CloseOutlined/>}
-                      onClick={() => {
-                        removeTaskHandler()
-                      }}
-              >
-              </Button>
-              <EditTitleForm title={t.title} changeTitle={changeTaskTitle}/>
-            </Space>
-          </li>
+          return <>
+            <List>
+              <li key={t.id}
+                  className={t.isDone ? 'completed-task' : ''}>
+                <Space>
+                  <Checkbox
+                    type="checkbox"
+                    checked={t.isDone}
+                    onChange={taskStatusHandler}
+                  />
+                  <Button size="small"
+                          style={{color: 'red'}}
+                          icon={<CloseOutlined/>}
+                          onClick={() => {
+                            removeTaskHandler()
+                          }}
+                  >
+                  </Button>
+                  <EditTitleForm title={t.title} changeTitle={changeTaskTitle}/>
+                </Space>
+              </li>
+            </List>
+
+          </>
         })}
       </ul>
       <div>
@@ -103,7 +107,9 @@ export const Todolist = (props: TodolistPropsType) => {
           </Button>
         </Space>
       </div>
-    </div>
+    </>
+
+
   )
 }
 
