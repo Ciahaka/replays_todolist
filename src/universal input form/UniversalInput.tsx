@@ -1,5 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, Space} from 'antd';
+import {Button, Input, Space} from 'antd';
+import {
+  FileProtectOutlined,
+  PlusCircleTwoTone,
+} from '@ant-design/icons';
 
 export type UniversalInputType = {
   addInputForm: (title: string) => void
@@ -26,12 +30,14 @@ export const UniversalInput = (props: UniversalInputType) => {
   return (
     <div>
       <Space>
-        <input value={value}
+        <Input prefix={<FileProtectOutlined style={{opacity: '50%'}}/>}
+               placeholder={'add task'}
+               value={value}
                onChange={changeValueInputHandler}
                onKeyDown={keyDownHandler}
                className={error ? 'error' : ''}
         />
-        <Button onClick={addTaskHandler}>+</Button>
+        <Button onClick={addTaskHandler} size={'small'} icon={<PlusCircleTwoTone twoToneColor="#00a6ff"/>}></Button>
       </Space>
       {error && <div className={'error-message'}>{error}</div>}
     </div>
