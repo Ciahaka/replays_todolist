@@ -1,32 +1,32 @@
-.App {
-    margin: 20px;
-    padding: 30px;
-    display: flex;
-    gap: 15px;
-}
-
 
 .error {
     border: red 1px solid;
 }
-
 .error-message {
     color: red;
 }
-
 .active-filter {
-    background-color: #00cfff;
+    background-color: #00a6ff;
+    color: white;
 }
-
 .completed-task {
     opacity: 50%;
+}
+.site-layout-content {
+    min-height: 280px;
+    padding: 24px;
+    display: flex;
+    gap: 15px;
 }
 .logo {
     float: left;
     width: 120px;
     height: 31px;
     margin: 16px 24px 16px 0;
-    background: rgba(255, 255, 255, 0.3);
+}
+.logo .title{
+    text-align: center;
+    color: #FFFFFFFF;
 }
 .ant-row-rtl .logo {
     float: right;

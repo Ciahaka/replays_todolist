@@ -3,9 +3,10 @@ import '../App.css';
 import {TasksType, Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {UniversalInput} from '../universal input form/UniversalInput';
-import {Breadcrumb, Layout, Menu, Space} from 'antd';
+import {Avatar, Breadcrumb, Card, Col, Layout, Menu, Row} from 'antd';
 import 'antd/dist/reset.css';
-import {UserAddOutlined} from '@ant-design/icons';
+import Title from 'antd/es/typography/Title';
+import ava from '../multimedia/images/elvis.svg'
 
 const {Header, Content, Footer} = Layout;
 
@@ -96,62 +97,86 @@ function App() {
   }
 
   return (
-    <Layout>
+    <Layout className="layout">
       <Header style={{position: 'sticky', top: 0, zIndex: 1, width: '100%'}}>
-        <div className='logo' />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={['1']}
-          items={new Array(3).fill(null).map((_, index) => {
-            const key = index + 1;
-            return {
-              key,
-              label: `Todo ${key}`,
-            };
-          })}
-        />
-
+        <Row>
+          <Col span={5}>
+            <div className="logo">
+              <Title className={'title'} level={3}>TODOLIST</Title>
+            </div>
+          </Col>
+          <Col span={18}>
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              defaultSelectedKeys={['1']}
+              items={new Array(3).fill(null).map((_, index) => {
+                const key = index + 1;
+                return {
+                  key,
+                  label: `Todo ${key}`,
+                };
+              })}
+            />
+          </Col>
+          <Col span={1}>
+            <Avatar style={{backgroundColor: 'white'}}
+                    size={54}
+                    src={<img src={ava} alt={'avatar'}/>}/>
+          </Col>
+        </Row>
       </Header>
       <Layout>
         <Content className="site-layout" style={{padding: '0 50px'}}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Todolist</Breadcrumb.Item>
-          </Breadcrumb>
-          <div className="App">
-            <UniversalInput addInputForm={addInputForm}/>
+          <Row>
+            <Col>
+              <Breadcrumb style={{margin: '16px 0'}}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>Todolist</Breadcrumb.Item>
+              </Breadcrumb>
+            </Col>
+          </Row>
 
-            {todos.map((td) => {
-              let filteredTasks = tasks[td.id]
-              let tasksForTodolist = filteredTasks
+          <div className="site-layout-content">
+            <Row gutter={[20,20]}>
+              <Col span={'100px'}>
+                <UniversalInput addInputForm={addInputForm}/>
+              </Col>
+                {todos.map((td) => {
+                  let filteredTasks = tasks[td.id]
+                  let tasksForTodolist = filteredTasks
 
-              if (td.filter === 'Active') {
-                tasksForTodolist = filteredTasks.filter((t) => !t.isDone)
-              }
-              if (td.filter === 'Completed') {
-                tasksForTodolist = filteredTasks.filter((t) => t.isDone)
-              }
-              return <>
-                <Todolist key={td.id}
-                          id={td.id}
-                          title={td.title}
-                          filter={td.filter}
-                          tasks={tasksForTodolist}
-                          removeTasks={removeTasks}
-                          removeTodo={removeTodo}
-                          changeFilter={changeFilter}
-                          addTask={addTask}
-                          statusCheckbox={changeStatusCheckbox}
-                          changeTaskTitle={changeTaskTitle}
-                          changeTodoTitle={changeTodoTitle}
-                />
-              </>
-            })}
+                  if (td.filter === 'Active') {
+                    tasksForTodolist = filteredTasks.filter((t) => !t.isDone)
+                  }
+                  if (td.filter === 'Completed') {
+                    tasksForTodolist = filteredTasks.filter((t) => t.isDone)
+                  }
+                  return <>
+                    <Col span={'auto'}>
+                      <Card hoverable>
+                        <Todolist key={td.id}
+                                  id={td.id}
+                                  title={td.title}
+                                  filter={td.filter}
+                                  tasks={tasksForTodolist}
+                                  removeTasks={removeTasks}
+                                  removeTodo={removeTodo}
+                                  changeFilter={changeFilter}
+                                  addTask={addTask}
+                                  statusCheckbox={changeStatusCheckbox}
+                                  changeTaskTitle={changeTaskTitle}
+                                  changeTodoTitle={changeTodoTitle}
+                        />
+                      </Card>
+                    </Col>
+                  </>
+                })}
+            </Row>
           </div>
         </Content>
       </Layout>
-      <Footer  style={{textAlign: 'center', color: 'white', background: 'gray'}}>Ant Design ©2023 Created by Mamkin
+      <Footer style={{textAlign: 'center', color: 'white', background: 'gray'}}>Todolist ©2023 Ant Design by Mamkin
         Developer</Footer>
     </Layout>
 
