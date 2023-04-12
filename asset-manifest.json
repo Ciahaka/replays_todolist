@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/todolist-and-antdesign/static/css/main.ce958fc0.css",
-    "main.js": "/todolist-and-antdesign/static/js/main.634013da.js",
-    "static/media/elvis.svg": "/todolist-and-antdesign/static/media/elvis.d6d164e39ff689edeb1ea926521f6d7c.svg",
-    "index.html": "/todolist-and-antdesign/index.html",
-    "static/media/index.cjs": "/todolist-and-antdesign/static/media/index.62742eb6f42760c4bbe1.cjs",
-    "main.ce958fc0.css.map": "/todolist-and-antdesign/static/css/main.ce958fc0.css.map",
-    "main.634013da.js.map": "/todolist-and-antdesign/static/js/main.634013da.js.map"
+    "main.css": "/todo_replays/static/css/main.ce958fc0.css",
+    "main.js": "/todo_replays/static/js/main.b4125170.js",
+    "static/media/elvis.svg": "/todo_replays/static/media/elvis.d6d164e39ff689edeb1ea926521f6d7c.svg",
+    "index.html": "/todo_replays/index.html",
+    "static/media/index.cjs": "/todo_replays/static/media/index.62742eb6f42760c4bbe1.cjs",
+    "main.ce958fc0.css.map": "/todo_replays/static/css/main.ce958fc0.css.map",
+    "main.b4125170.js.map": "/todo_replays/static/js/main.b4125170.js.map"
   },
   "entrypoints": [
     "static/css/main.ce958fc0.css",
-    "static/js/main.634013da.js"
+    "static/js/main.b4125170.js"
   ]
 }
