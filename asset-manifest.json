@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/todolist-and-antdesign/static/css/main.ce958fc0.css",
+    "main.js": "/todolist-and-antdesign/static/js/main.634013da.js",
+    "static/media/elvis.svg": "/todolist-and-antdesign/static/media/elvis.d6d164e39ff689edeb1ea926521f6d7c.svg",
+    "index.html": "/todolist-and-antdesign/index.html",
+    "static/media/index.cjs": "/todolist-and-antdesign/static/media/index.62742eb6f42760c4bbe1.cjs",
+    "main.ce958fc0.css.map": "/todolist-and-antdesign/static/css/main.ce958fc0.css.map",
+    "main.634013da.js.map": "/todolist-and-antdesign/static/js/main.634013da.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce958fc0.css",
+    "static/js/main.634013da.js"
+  ]
+}
