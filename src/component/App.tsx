@@ -10,7 +10,6 @@ import ava from '../multimedia/images/elvis.svg'
 
 const {Header, Content, Footer} = Layout;
 
-
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
 
 type TodolistType = {
