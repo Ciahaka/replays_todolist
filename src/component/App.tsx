@@ -12,7 +12,7 @@ const {Header, Content, Footer} = Layout;
 
 export type ChangeFilterType = 'All' | 'Active' | 'Completed'
 
-type TodolistType = {
+export type TodolistType = {
   id: string
   title: string
   filter: ChangeFilterType
