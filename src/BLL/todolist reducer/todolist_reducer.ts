@@ -1,10 +1,30 @@
-import {TodolistType} from '../../component/App';
+import {ChangeFilterType, TodolistType} from '../../component/App';
 import {v1} from 'uuid';
 
-type ActionType = {
-  type: string
-  [key: string]: any
+export type removeTodolistActionType = {
+  type: 'REMOVE-TODOLIST'
+  id: string
 }
+export type addTodolistActionType = {
+  type: 'ADD-TODOLIST'
+  title: string
+}
+export type changeTodolistTitleActionType = {
+  type: 'CHANGE-TODOLIST-TITLE'
+  id: string
+  title: string
+}
+export type changeTodolistFilterActionType = {
+  type: 'CHANGE-TODOLIST-FILTER'
+  id: string
+  filter: ChangeFilterType
+}
+type ActionType =
+  removeTodolistActionType
+  | addTodolistActionType
+  | changeTodolistTitleActionType
+  | changeTodolistFilterActionType
+
 export const todolistReducer = (state: Array<TodolistType>, action: ActionType): Array<TodolistType> => {
   switch (action.type) {
     case 'REMOVE-TODOLIST': {
@@ -15,7 +35,7 @@ export const todolistReducer = (state: Array<TodolistType>, action: ActionType):
         {id: v1(), title: action.title, filter: 'All'}]
     }
     case 'CHANGE-TODOLIST-TITLE': {
-      let changeArr= state.find(tl => tl.id === action.id)
+      let changeArr = state.find(tl => tl.id === action.id)
       if (changeArr) {
         changeArr.title = action.title
       }
