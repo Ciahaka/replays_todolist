@@ -17,7 +17,7 @@ export type changeTodolistTitleActionType = {
 export type changeTodolistFilterActionType = {
   type: 'CHANGE-TODOLIST-FILTER'
   id: string
-  filter: ChangeFilterType
+  filter:ChangeFilterType
 }
 type ActionType =
   removeTodolistActionType
