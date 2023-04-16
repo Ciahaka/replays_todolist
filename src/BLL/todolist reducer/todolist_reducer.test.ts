@@ -1,5 +1,11 @@
 
-import {todolistReducer} from './todolist_reducer';
+import {
+  addTodolistAC,
+  changeTodolistFilterAC,
+  changeTodolistTitleAC,
+  removeTodolistAC,
+  todolistReducer
+} from './todolist_reducer';
 import { v1 } from 'uuid'
 import {ChangeFilterType, TodolistType} from '../../component/App';
 
@@ -13,7 +19,7 @@ test('correct todolist should be removed', () => {
     {id: tLID_2, title: 'What to buy', filter: 'All'}
   ]
 
-  const endState = todolistReducer(startState, {type: 'REMOVE-TODOLIST', id: tLID_1})
+  const endState = todolistReducer(startState, removeTodolistAC(tLID_1))
 
   expect(endState.length).toBe(1)
   expect(endState[0].id).toBe(tLID_2)
@@ -29,7 +35,7 @@ test('correct todolist should be added', () => {
     {id: tLID_2, title: 'What to buy', filter: 'All'}
   ]
 
-  const endState = todolistReducer(startState, {type: 'ADD-TODOLIST', title: newTodolistTitle})
+  const endState = todolistReducer(startState, addTodolistAC(newTodolistTitle))
 
   expect(endState.length).toBe(3)
   expect(endState[2].title).toBe(newTodolistTitle)
@@ -45,13 +51,7 @@ test('correct todolist should change its name', () => {
     {id: tLID_2, title: 'What to buy', filter: 'All'}
   ]
 
-  const action = {
-    type: 'CHANGE-TODOLIST-TITLE' as const,
-    id: tLID_2,
-    title: newTodolistTitle
-  }
-
-  const endState = todolistReducer(startState, action)
+  const endState = todolistReducer(startState, changeTodolistTitleAC(tLID_2,newTodolistTitle))
 
   expect(endState[0].title).toBe('What to learn')
   expect(endState[1].title).toBe(newTodolistTitle)
@@ -67,13 +67,7 @@ test('correct filter of todolist should be changed', () => {
     {id: tLID_2, title: 'What to buy', filter: 'All'}
   ]
 
-  const action = {
-    type: 'CHANGE-TODOLIST-FILTER' as const,
-    id: tLID_2,
-    filter: newFilter
-  }
-
-  const endState = todolistReducer(startState, action)
+  const endState = todolistReducer(startState, changeTodolistFilterAC(tLID_2,newFilter))
 
   expect(endState[0].filter).toBe('All')
   expect(endState[1].filter).toBe(newFilter)
