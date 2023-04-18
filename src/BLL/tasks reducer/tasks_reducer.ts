@@ -1,7 +1,7 @@
 import {TasksStateType} from '../../component/App';
 import {v1} from 'uuid';
 import {TasksType} from '../../component/Todolist';
-import {addTodolistActionType} from '../todolist reducer/todolist_reducer';
+import {addTodolistActionType, removeTodolistActionType} from '../todolist reducer/todolist_reducer';
 
 
 export type removeTaskActionType = {
@@ -33,6 +33,7 @@ type UnionActionType =
   | changeTaskStatusActionType
   | changeTaskTitleActionType
   | addTodolistActionType
+  | removeTodolistActionType
 
 export const tasksReducer = (state: TasksStateType, action: UnionActionType): TasksStateType => {
   switch (action.type) {
@@ -64,8 +65,16 @@ export const tasksReducer = (state: TasksStateType, action: UnionActionType): Ta
       return {...state}
     }
     case 'ADD-TODOLIST': {
-      state[action.id] = []
-      return {...state}
+      return {
+        ...state,
+        [action.id]: []
+    }
+    }
+    case 'REMOVE-TODOLIST': {
+      const copyState = {...state}
+      delete copyState[action.id]
+
+      return copyState
     }
     default:
       throw new Error('Error! Action crash me! Error!')
