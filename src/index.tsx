@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import AppReducer from './component/AppReducer';
 import App from './component/App';
-
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <App/>
+    <AppReducer/>
   </React.StrictMode>
 );
 
