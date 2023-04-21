@@ -24,7 +24,7 @@ export type TodolistPropsType = {
   removeTodo: (tLID: string) => void
   changeFilter: (tdID: string, value: ChangeFilterType) => void
   addTask: (title: string, tLID: string) => void
-  statusCheckbox: (taskID: string, tLID: string, isDone: boolean) => void
+  statusCheckbox: (taskID: string, isDone: boolean, tLID: string) => void
   changeTaskTitle: (taskID: string, tLID: string, title: string) => void
   changeTodoTitle: (tLID: string, title: string) => void
 }
@@ -56,7 +56,7 @@ export const Todolist = (props: TodolistPropsType) => {
           const removeTaskHandler = () => props.removeTasks(t.id, props.id)
           const taskStatusHandler = (e: CheckboxChangeEvent) => {
             let bindCheckbox = e.target.checked
-            props.statusCheckbox(t.id, props.id, bindCheckbox)
+            props.statusCheckbox(t.id, bindCheckbox, props.id)
           }
           const changeTaskTitle = (newTitle: string) => {
             props.changeTaskTitle(t.id, props.id, newTitle)
