@@ -98,7 +98,7 @@ test('title of specified task should be changed', () => {
     ]
   }
 
-  const action = changeTaskTitleAC('3', 'Redux', 'todolistId1')
+  const action = changeTaskTitleAC('3', 'todolistId1', 'Redux')
 
   const endState:TasksStateType = tasksReducer(startState, action)
 
