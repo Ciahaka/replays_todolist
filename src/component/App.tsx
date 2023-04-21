@@ -62,7 +62,7 @@ function App() {
     tasks[tLID] = [newTask, ...tasksTodolist]
     setTasks({...tasks})
   }
-  const changeStatusCheckbox = (taskID: string, tLID: string, isDone: boolean) => {
+  const changeStatusCheckbox = (taskID: string, isDone: boolean, tLID: string) => {
 
     let tasksTodolist = tasks[tLID]
     let newStatusTask = tasksTodolist.find(t => t.id === taskID)
