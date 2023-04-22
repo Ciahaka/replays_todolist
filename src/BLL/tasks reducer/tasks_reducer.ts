@@ -1,4 +1,4 @@
-import  {TasksStateType} from '../../component/App';
+import {TasksStateType} from '../../component/App';
 import {v1} from 'uuid';
 import {TasksType} from '../../component/Todolist';
 import {addTodolistActionType, removeTodolistActionType} from '../todolist reducer/todolist_reducer';
@@ -38,33 +38,35 @@ type UnionActionType =
 export const tasksReducer = (state: TasksStateType, action: UnionActionType): TasksStateType => {
   switch (action.type) {
     case 'REMOVE-TASK': {
-      let tasksTodolist = state[action.tLID]
-      state[action.tLID] = tasksTodolist.filter(t => t.id !== action.taskID)
-      return {...state}
+      const copyState = {...state}
+      let tasksTodolist = copyState[action.tLID]
+      copyState[action.tLID] = tasksTodolist.filter(t => t.id !== action.taskID)
+      return copyState
     }
     case 'ADD-TASK': {
+      const copyState = {...state}
       let newTask = {id: v1(), title: action.title, isDone: false}
-      let tasksTodolist:TasksType[] = state[action.tLID]
-      state[action.tLID] = [newTask, ...tasksTodolist]
-      return {...state}
+      let tasksTodolist = copyState[action.tLID]
+      copyState[action.tLID] = [newTask, ...tasksTodolist]
+      return copyState
     }
     case 'CHANGE-TASK-STATUS': {
-
-      let tasksTodolist = state[action.tLID]
+      const copyState = {...state}
+      let tasksTodolist = copyState[action.tLID]
       let newStatusTask = tasksTodolist.find(t => t.id === action.taskID)
       if (newStatusTask) {
         newStatusTask.isDone = action.isDone
       }
-      return {...state}
+      return copyState
     }
     case 'CHANGE-TASK-TITLE': {
-
-      let tasksTodolist:TasksType[] = state[action.tLID]
+      const copyState = {...state}
+      let tasksTodolist: TasksType[] = copyState[action.tLID]
       let newStatusTask = tasksTodolist.find(t => t.id === action.taskID)
       if (newStatusTask) {
         newStatusTask.title = action.title
       }
-      return {...state}
+      return copyState
     }
     case 'ADD-TODOLIST': {
       return {
@@ -75,7 +77,6 @@ export const tasksReducer = (state: TasksStateType, action: UnionActionType): Ta
     case 'REMOVE-TODOLIST': {
       const copyState = {...state}
       delete copyState[action.id]
-
       return copyState
     }
     default:
