@@ -10,7 +10,7 @@ import ava from '../multimedia/images/elvis.svg'
 import {
   addTodolistAC, changeTodolistFilterAC,
   changeTodolistTitleAC,
-  removeTodolistAC,
+  removeTodolistAC, tLID_1, tLID_2,
   todolistReducer
 } from '../BLL/todolist reducer/todolist_reducer';
 import {
@@ -35,8 +35,8 @@ export type  TasksStateType = {
 }
 
 function AppRedux() {
-  let tLID_1 = v1()
-  let tLID_2 = v1()
+  // let tLID_1 = v1()
+  // let tLID_2 = v1()
 
   let [todos, dispatchTodos] = useReducer(todolistReducer, [
     {id: tLID_1, title: 'Что учить?', filter: 'All'},
