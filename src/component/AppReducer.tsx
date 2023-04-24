@@ -123,6 +123,7 @@ function AppReducer() {
               <Breadcrumb style={{margin: '16px 0'}}>
                 <Breadcrumb.Item>Home</Breadcrumb.Item>
                 <Breadcrumb.Item>Todolist</Breadcrumb.Item>
+                <Breadcrumb.Item>useReducer</Breadcrumb.Item>
               </Breadcrumb>
             </Col>
           </Row>
