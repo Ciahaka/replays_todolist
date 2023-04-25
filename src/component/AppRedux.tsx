@@ -20,6 +20,8 @@ import {
   removeTaskAC,
   tasksReducer
 } from '../BLL/tasks reducer/tasks_reducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootStateType} from '../BLL/store/store';
 
 const {Header, Content, Footer} = Layout;
 
@@ -35,15 +37,15 @@ export type  TasksStateType = {
 }
 
 function AppRedux() {
-  // let tLID_1 = v1()
-  // let tLID_2 = v1()
+  const dispatch = useDispatch()
 
-  let [todos, dispatchTodos] = useReducer(todolistReducer, [
+
+  let [todos] = useReducer(todolistReducer, [
     {id: tLID_1, title: 'Что учить?', filter: 'All'},
     {id: tLID_2, title: 'Что купить?', filter: 'All'},
   ])
 
-  let [tasks, dispatchTasks] = useReducer(tasksReducer, {
+  let [tasks] = useReducer(tasksReducer, {
     [tLID_1]: [
       {id: v1(), title: 'HTML&CSS', isDone: true},
       {id: v1(), title: 'JS', isDone: false},
@@ -57,33 +59,31 @@ function AppRedux() {
 
   const addTask = (title: string, tLID: string) => {
 
-    dispatchTasks(addTaskAC(title, tLID))
+    dispatch(addTaskAC(title, tLID))
   }
   const removeTasks = (taskID: string, tLID: string) => {
-    dispatchTasks(removeTaskAC(taskID, tLID))
+    dispatch(removeTaskAC(taskID, tLID))
   }
   const changeStatusCheckbox = (taskID: string, isDone: boolean, tLID: string) => {
-    dispatchTasks(changeTaskStatusAC(taskID, isDone, tLID))
+    dispatch(changeTaskStatusAC(taskID, isDone, tLID))
   }
   const changeTaskTitle = (taskID: string, tLID: string, newTitle: string) => {
-    dispatchTasks(changeTaskTitleAC(taskID, tLID, newTitle))
+    dispatch(changeTaskTitleAC(taskID, tLID, newTitle))
   }
 
   const addTodolist = (title: string) => {
     const action = addTodolistAC(title)
-    dispatchTodos(action)
-    dispatchTasks(action)
+    dispatch(action)
   }
   const removeTodo = (tLID: string) => {
-    dispatchTodos(removeTodolistAC(tLID))
-    dispatchTasks(removeTodolistAC(tLID))
+    dispatch(removeTodolistAC(tLID))
   }
   const changeFilter = (tdLID: string, value: ChangeFilterType) => {
 
-    dispatchTodos(changeTodolistFilterAC(tdLID, value))
+    dispatch(changeTodolistFilterAC(tdLID, value))
   }
   const changeTodoTitle = (tLID: string, newTitle: string) => {
-    dispatchTodos(changeTodolistTitleAC(tLID, newTitle))
+    dispatch(changeTodolistTitleAC(tLID, newTitle))
   }
 
   return (
