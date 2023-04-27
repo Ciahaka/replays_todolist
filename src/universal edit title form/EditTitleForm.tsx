@@ -5,7 +5,7 @@ export type EditeTitleType = {
   changeTitle: (title: string) => void
 }
 
-export const EditTitleForm = (props: EditeTitleType) => {
+export const EditTitleForm =React.memo ((props: EditeTitleType) => {
 
   let [title, setTitle] = useState('')
   let [editMode, setEditMode] = useState(false)
@@ -25,5 +25,5 @@ export const EditTitleForm = (props: EditeTitleType) => {
   return editMode
     ? <input onChange={changeTitleElement} value={title} autoFocus onBlur={returnViewElement}/>
     : <span onDoubleClick={activateViewMode}>{props.title}</span>
-};
+});
 
