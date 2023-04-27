@@ -35,7 +35,7 @@ type UnionActionType =
   | addTodolistActionType
   | removeTodolistActionType
 
-const initialState:TasksStateType = {
+const initialState: TasksStateType = {
   [tLID_1]: [
     {id: v1(), title: 'HTML&CSS', isDone: true},
     {id: v1(), title: 'JS', isDone: false},
@@ -65,7 +65,10 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Union
     case 'CHANGE-TASK-STATUS': {
       const copyState = {...state}
       let tasksTodolist = copyState[action.tLID]
-      copyState[action.tLID] = tasksTodolist.map(t=>t.id === action.taskID ? {...t,isDone:action.isDone}:t)
+      copyState[action.tLID] = tasksTodolist.map(t =>
+        t.id === action.taskID
+          ? {...t, isDone: action.isDone}
+          : t)
       return copyState
     }
     case 'CHANGE-TASK-TITLE': {
