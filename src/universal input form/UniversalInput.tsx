@@ -9,7 +9,8 @@ export type UniversalInputType = {
   addInputForm: (title: string) => void
 }
 
-export const UniversalInput = (props: UniversalInputType) => {
+export const UniversalInput = React.memo((props: UniversalInputType) => {
+  console.log('!!UniversalInput!!')
   let [value, setValue] = useState('')
   let [error, setError] = useState<null | string>(null)
 
@@ -21,7 +22,9 @@ export const UniversalInput = (props: UniversalInputType) => {
     } else setError('Заполните поле!')
   }
   const keyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    setError(null)
+    if (error !== null) {
+      setError(null)
+    }
     if (e.key === 'Enter') {
       addTaskHandler()
     }
@@ -42,5 +45,5 @@ export const UniversalInput = (props: UniversalInputType) => {
       {error && <div className={'error-message'}>{error}</div>}
     </div>
   );
-};
+});
 
