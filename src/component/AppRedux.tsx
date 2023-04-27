@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import '../App.css';
 import {TasksType, Todolist} from './Todolist';
 
@@ -35,7 +35,7 @@ export type  TasksStateType = {
 }
 
 function AppRedux() {
-
+  console.log('!!AppRedux!!')
   const dispatch = useDispatch()
 
   const todos = useSelector<RootStateType,TodolistType[]>(state => state.todos)
@@ -48,13 +48,13 @@ function AppRedux() {
   const changeStatusCheckbox = (taskID: string, isDone: boolean, tLID: string) => {
     dispatch(changeTaskStatusAC(taskID, isDone, tLID))
   }
-  const changeTaskTitle = (taskID: string, tLID: string, newTitle: string) => {
+  const changeTaskTitle = useCallback ((taskID: string, tLID: string, newTitle: string) => {
     dispatch(changeTaskTitleAC(taskID, tLID, newTitle))
-  }
-  const addTodolist = (title: string) => {
+  },[])
+  const addTodolist =useCallback ((title: string) => {
     const action = addTodolistAC(title)
     dispatch(action)
-  }
+  },[])
   const removeTodo = (tLID: string) => dispatch(removeTodolistAC(tLID))
 
   const changeFilter = (tdLID: string, value: ChangeFilterType) => {
