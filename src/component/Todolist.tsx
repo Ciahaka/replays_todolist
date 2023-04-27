@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {ChangeFilterType} from './App';
 import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
@@ -29,13 +29,13 @@ export type TodolistPropsType = {
   changeTodoTitle: (tLID: string, title: string) => void
 }
 
-export const Todolist = (props: TodolistPropsType) => {
-
+export const Todolist = React.memo ((props: TodolistPropsType) => {
+  console.log('!!Todolist!!')
   const removeTodoHandler = () => props.removeTodo(props.id)
   const allStatusFilterHandler = () => props.changeFilter(props.id, 'All')
   const activeStatusFilterHandler = () => props.changeFilter(props.id, 'Active')
   const completedStatusFilterHandler = () => props.changeFilter(props.id, 'Completed')
-  const addTask = (title: string) => props.addTask(title, props.id)
+  const addTask =useCallback ((title: string) => props.addTask(title, props.id),[])
   const changeTitleTodoHandler = (newTitle: string) => props.changeTodoTitle(props.id, newTitle)
 
   return (
@@ -58,7 +58,7 @@ export const Todolist = (props: TodolistPropsType) => {
             let bindCheckbox = e.target.checked
             props.statusCheckbox(t.id, bindCheckbox, props.id)
           }
-          const changeTaskTitle = (newTitle: string) => {
+          const changeTaskTitle =(newTitle: string) => {
             props.changeTaskTitle(t.id, props.id, newTitle)
           }
 
@@ -111,5 +111,5 @@ export const Todolist = (props: TodolistPropsType) => {
 
 
   )
-}
+})
 
