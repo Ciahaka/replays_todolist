@@ -41,28 +41,26 @@ function AppRedux() {
   const todos = useSelector<RootStateType,TodolistType[]>(state => state.todos)
   const tasks = useSelector<RootStateType,TasksStateType>(state => state.tasks)
 
-  const addTask = (title: string, tLID: string) => dispatch(addTaskAC(title, tLID))
-
-  const removeTasks = (taskID: string, tLID: string) => dispatch(removeTaskAC(taskID, tLID))
-
-  const changeStatusCheckbox = (taskID: string, isDone: boolean, tLID: string) => {
+  const addTask = useCallback( (title: string, tLID: string) => dispatch(addTaskAC(title, tLID)),[])
+  const removeTasks = useCallback( (taskID: string, tLID: string) => dispatch(removeTaskAC(taskID, tLID)),[])
+  const changeStatusCheckbox = useCallback((taskID: string, isDone: boolean, tLID: string) => {
     dispatch(changeTaskStatusAC(taskID, isDone, tLID))
-  }
+  },[])
   const changeTaskTitle = useCallback ((taskID: string, tLID: string, newTitle: string) => {
     dispatch(changeTaskTitleAC(taskID, tLID, newTitle))
   },[])
+
   const addTodolist =useCallback ((title: string) => {
     const action = addTodolistAC(title)
     dispatch(action)
   },[])
-  const removeTodo = (tLID: string) => dispatch(removeTodolistAC(tLID))
-
-  const changeFilter = (tdLID: string, value: ChangeFilterType) => {
+  const removeTodo = useCallback( (tLID: string) => dispatch(removeTodolistAC(tLID)),[])
+  const changeFilter =useCallback( (tdLID: string, value: ChangeFilterType) => {
     dispatch(changeTodolistFilterAC(tdLID, value))
-  }
-  const changeTodoTitle = (tLID: string, newTitle: string) => {
+  },[])
+  const changeTodoTitle =useCallback( (tLID: string, newTitle: string) => {
     dispatch(changeTodolistTitleAC(tLID, newTitle))
-  }
+  },[])
 
   return (
     <Layout className="layout">
