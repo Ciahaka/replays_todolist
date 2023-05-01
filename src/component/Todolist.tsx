@@ -29,14 +29,15 @@ export type TodolistPropsType = {
   changeTodoTitle: (tLID: string, title: string) => void
 }
 
-export const Todolist = React.memo ((props: TodolistPropsType) => {
+export const Todolist = React.memo((props: TodolistPropsType) => {
   console.log('!!Todolist!!')
-  const removeTodoHandler = () => props.removeTodo(props.id)
-  const allStatusFilterHandler = () => props.changeFilter(props.id, 'All')
-  const activeStatusFilterHandler = () => props.changeFilter(props.id, 'Active')
-  const completedStatusFilterHandler = () => props.changeFilter(props.id, 'Completed')
-  const addTask =useCallback ((title: string) => props.addTask(title, props.id),[])
-  const changeTitleTodoHandler = (newTitle: string) => props.changeTodoTitle(props.id, newTitle)
+  const addTask = useCallback((title: string) => props.addTask(title, props.id), [props.addTask, props.id])
+
+  const removeTodoHandler = useCallback(() => props.removeTodo(props.id), [props.removeTodo, props.id])
+  const allStatusFilterHandler = useCallback(() => props.changeFilter(props.id, 'All'), [props.changeFilter, props.id])
+  const activeStatusFilterHandler = useCallback(() => props.changeFilter(props.id, 'Active'), [props.changeFilter, props.id])
+  const completedStatusFilterHandler = useCallback(() => props.changeFilter(props.id, 'Completed'), [props.changeFilter, props.id])
+  const changeTitleTodoHandler = useCallback((newTitle: string) => props.changeTodoTitle(props.id, newTitle), [props.changeTodoTitle, props.id])
 
   return (
     <>
@@ -58,7 +59,7 @@ export const Todolist = React.memo ((props: TodolistPropsType) => {
             let bindCheckbox = e.target.checked
             props.statusCheckbox(t.id, bindCheckbox, props.id)
           }
-          const changeTaskTitle =(newTitle: string) => {
+          const changeTaskTitle = (newTitle: string) => {
             props.changeTaskTitle(t.id, props.id, newTitle)
           }
 
