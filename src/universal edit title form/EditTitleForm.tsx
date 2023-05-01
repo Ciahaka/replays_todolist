@@ -5,7 +5,8 @@ export type EditeTitleType = {
   changeTitle: (title: string) => void
 }
 
-export const EditTitleForm =React.memo ((props: EditeTitleType) => {
+export const EditTitleForm = React.memo((props: EditeTitleType) => {
+  console.log('!!!EditTitleForm!!!')
 
   let [title, setTitle] = useState('')
   let [editMode, setEditMode] = useState(false)
