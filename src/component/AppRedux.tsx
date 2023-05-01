@@ -38,29 +38,28 @@ function AppRedux() {
   console.log('!!AppRedux!!')
   const dispatch = useDispatch()
 
-  const todos = useSelector<RootStateType,TodolistType[]>(state => state.todos)
-  const tasks = useSelector<RootStateType,TasksStateType>(state => state.tasks)
+  const todos = useSelector<RootStateType, TodolistType[]>(state => state.todos)
+  const tasks = useSelector<RootStateType, TasksStateType>(state => state.tasks)
 
-  const addTask = useCallback( (title: string, tLID: string) => dispatch(addTaskAC(title, tLID)),[])
-  const removeTasks = useCallback( (taskID: string, tLID: string) => dispatch(removeTaskAC(taskID, tLID)),[])
+  const addTask = useCallback((title: string, tLID: string) => dispatch(addTaskAC(title, tLID)), [dispatch])
+  const removeTasks = useCallback((taskID: string, tLID: string) => dispatch(removeTaskAC(taskID, tLID)), [dispatch])
   const changeStatusCheckbox = useCallback((taskID: string, isDone: boolean, tLID: string) => {
     dispatch(changeTaskStatusAC(taskID, isDone, tLID))
-  },[])
-  const changeTaskTitle = useCallback ((taskID: string, tLID: string, newTitle: string) => {
+  }, [dispatch])
+  const changeTaskTitle = useCallback((taskID: string, tLID: string, newTitle: string) => {
     dispatch(changeTaskTitleAC(taskID, tLID, newTitle))
-  },[])
+  }, [dispatch])
 
-  const addTodolist =useCallback ((title: string) => {
-    const action = addTodolistAC(title)
-    dispatch(action)
-  },[])
-  const removeTodo = useCallback( (tLID: string) => dispatch(removeTodolistAC(tLID)),[])
-  const changeFilter =useCallback( (tdLID: string, value: ChangeFilterType) => {
+  const addTodolist = useCallback((title: string) => {
+    dispatch(addTodolistAC(title))
+  }, [dispatch])
+  const removeTodo = useCallback((tLID: string) => dispatch(removeTodolistAC(tLID)), [dispatch])
+  const changeFilter = useCallback((tdLID: string, value: ChangeFilterType) => {
     dispatch(changeTodolistFilterAC(tdLID, value))
-  },[])
-  const changeTodoTitle =useCallback( (tLID: string, newTitle: string) => {
+  }, [dispatch])
+  const changeTodoTitle = useCallback((tLID: string, newTitle: string) => {
     dispatch(changeTodolistTitleAC(tLID, newTitle))
-  },[])
+  }, [dispatch])
 
   return (
     <Layout className="layout">
