@@ -2,12 +2,12 @@ import React, {useCallback} from 'react';
 import {ChangeFilterType} from './App';
 import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
-import {Button, Checkbox, List} from 'antd';
-import {CheckboxChangeEvent} from 'antd/es/checkbox';
+import {Button} from 'antd';
+
 import {Space} from 'antd/lib';
-import {
-  CloseOutlined, DeleteOutlined,
+import {DeleteOutlined,
 } from '@ant-design/icons';
+import {Task} from './Task';
 
 
 export type TasksType = {
@@ -52,42 +52,17 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
       </div>
       <UniversalInput addInputForm={addTask}/>
       <ul>
-        {props.tasks.map((t: TasksType) => {
+        {
+          props.tasks.map(t => <Task
+            key={props.id}
+            tlID={props.id}
+            task={t}
+            removeTasks={props.removeTasks}
+            changeTaskTitle={props.changeTaskTitle}
+            statusCheckbox={props.statusCheckbox}
+          />)
+        }
 
-          const removeTaskHandler = () => props.removeTasks(t.id, props.id)
-          const taskStatusHandler = (e: CheckboxChangeEvent) => {
-            let bindCheckbox = e.target.checked
-            props.statusCheckbox(t.id, bindCheckbox, props.id)
-          }
-          const changeTaskTitle = (newTitle: string) => {
-            props.changeTaskTitle(t.id, props.id, newTitle)
-          }
-
-          return <>
-            <List>
-              <li key={t.id}
-                  className={t.isDone ? 'completed-task' : ''}>
-                <Space>
-                  <Checkbox
-                    type="checkbox"
-                    checked={t.isDone}
-                    onChange={taskStatusHandler}
-                  />
-                  <Button size="small"
-                          style={{color: 'red'}}
-                          icon={<CloseOutlined/>}
-                          onClick={() => {
-                            removeTaskHandler()
-                          }}
-                  >
-                  </Button>
-                  <EditTitleForm title={t.title} changeTitle={changeTaskTitle}/>
-                </Space>
-              </li>
-            </List>
-
-          </>
-        })}
       </ul>
       <div>
         <Space>
