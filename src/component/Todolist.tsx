@@ -1,13 +1,12 @@
 import React, {useCallback} from 'react';
 import {ChangeFilterType} from './App';
-import {UniversalInput} from '../universal input form/UniversalInput';
 import {EditTitleForm} from '../universal edit title form/EditTitleForm';
 import {Button} from 'antd';
-
 import {Space} from 'antd/lib';
 import {DeleteOutlined,
 } from '@ant-design/icons';
 import {Task} from './Task';
+import {UniversalInput} from '../universal input form/UniversalInput';
 
 
 export type TasksType = {
@@ -54,7 +53,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
       <ul>
         {
           props.tasks.map(t => <Task
-            key={props.id}
+            key={t.id}
             tlID={props.id}
             task={t}
             removeTasks={props.removeTasks}
@@ -84,8 +83,5 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         </Space>
       </div>
     </>
-
-
   )
 })
-
