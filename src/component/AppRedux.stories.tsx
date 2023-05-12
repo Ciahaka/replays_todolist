@@ -1,7 +1,7 @@
 import AppRedux from './AppRedux';
 import {Meta} from '@storybook/react';
 import React from 'react';
-import {DecoratorAppRedux} from './DecoratorAppRedux';
+import { DecoratorAppRedux} from './DecoratorAppRedux';
 
 const meta = {
   title: 'Todolist/AppRedux',
