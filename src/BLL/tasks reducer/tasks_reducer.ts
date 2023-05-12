@@ -1,7 +1,7 @@
 import {TasksStateType} from '../../component/App';
 import {v1} from 'uuid';
 import {TasksType} from '../../component/Todolist';
-import {addTodolistActionType, removeTodolistActionType, tLID_1, tLID_2} from '../todolist reducer/todolist_reducer';
+import {addTodolistActionType, removeTodolistActionType} from '../todolist reducer/todolist_reducer';
 
 
 export type removeTaskActionType = {
@@ -36,15 +36,7 @@ type UnionActionType =
   | removeTodolistActionType
 
 const initialState: TasksStateType = {
-  [tLID_1]: [
-    {id: v1(), title: 'HTML&CSS', isDone: true},
-    {id: v1(), title: 'JS', isDone: false},
-    {id: v1(), title: 'ReactJS', isDone: false},
-  ],
-  [tLID_2]: [
-    {id: v1(), title: 'Milk', isDone: false},
-    {id: v1(), title: 'Jem', isDone: false},
-  ]
+  count:[]
 }
 
 export const tasksReducer = (state: TasksStateType = initialState, action: UnionActionType): TasksStateType => {
